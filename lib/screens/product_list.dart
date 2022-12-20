@@ -134,6 +134,7 @@ class _ProductListState extends State<ProductList> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.redAccent,
         leading: IconButton(
           onPressed:
             getproduct,
@@ -143,6 +144,7 @@ class _ProductListState extends State<ProductList> {
         title: const Text('Product List'),
         actions: [
           Badge(
+            badgeColor: Colors.green,
             badgeContent: Consumer<CartProvider>(
               builder: (context, value, child) {
                 return Text(
@@ -174,10 +176,10 @@ class _ProductListState extends State<ProductList> {
           itemCount: productList.length,
           itemBuilder: (context, index) {
             return Card(
-              color: Colors.blueGrey.shade200,
+              color: Colors.white,
               elevation: 5.0,
               child: Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
@@ -226,7 +228,7 @@ class _ProductListState extends State<ProductList> {
                     ),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.blueGrey.shade900),
+                            primary: Colors.redAccent),
                         onPressed: () {
                           dbHelper
                               .insert(

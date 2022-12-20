@@ -30,9 +30,11 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.redAccent,
         title: const Text('My Shopping Cart'),
         actions: [
           Badge(
+            badgeColor: Colors.green,
             badgeContent: Consumer<CartProvider>(
               builder: (context, value, child) {
                 return Text(
@@ -70,130 +72,133 @@ class _CartScreenState extends State<CartScreen> {
                       shrinkWrap: true,
                       itemCount: provider.cart.length,
                       itemBuilder: (context, index) {
-                        return Card(
-                          color: Colors.blueGrey.shade200,
-                          elevation: 5.0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  SizedBox(
-                                    width: 130,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          text: TextSpan(
-                                              text: 'Name: ',
-                                              style: TextStyle(
-                                                  color: Colors.blueGrey.shade800,
-                                                  fontSize: 16.0),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        '${provider.cart[index].productName!}\n',
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ]),
-                                        ),
-                                        RichText(
-                                          maxLines: 1,
-                                          text: TextSpan(
-                                              text: 'Unit: ',
-                                              style: TextStyle(
-                                                  color: Colors.blueGrey.shade800,
-                                                  fontSize: 16.0),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        '${provider.cart[index].salePrice!}\n',
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ]),
-                                        ),
-                                        RichText(
-                                          maxLines: 1,
-                                          text: TextSpan(
-                                              text: 'Price: ' r"$",
-                                              style: TextStyle(
-                                                  color: Colors.blueGrey.shade800,
-                                                  fontSize: 16.0),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        '${provider.cart[index].purchasePrice!}\n',
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ]),
-                                        ),
-                                      ],
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+                          child: Card(
+                            color: Colors.white,
+                            elevation: 5.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    SizedBox(
+                                      width: 130,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            height: 5.0,
+                                          ),
+                                          RichText(
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            text: TextSpan(
+                                                text: 'Name: ',
+                                                style: TextStyle(
+                                                    color: Colors.blueGrey.shade800,
+                                                    fontSize: 16.0),
+                                                children: [
+                                                  TextSpan(
+                                                      text:
+                                                          '${provider.cart[index].productName!}\n',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ]),
+                                          ),
+                                          RichText(
+                                            maxLines: 1,
+                                            text: TextSpan(
+                                                text: 'Sale Price: ',
+                                                style: TextStyle(
+                                                    color: Colors.blueGrey.shade800,
+                                                    fontSize: 16.0),
+                                                children: [
+                                                  TextSpan(
+                                                      text:
+                                                          '${provider.cart[index].salePrice!}\n',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ]),
+                                          ),
+                                          RichText(
+                                            maxLines: 1,
+                                            text: TextSpan(
+                                                text: 'Price: ' r"$",
+                                                style: TextStyle(
+                                                    color: Colors.blueGrey.shade800,
+                                                    fontSize: 16.0),
+                                                children: [
+                                                  TextSpan(
+                                                      text:
+                                                          '${provider.cart[index].purchasePrice!}\n',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ]),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  ValueListenableBuilder<int>(
-                                      valueListenable:
-                                          provider.cart[index].quantity!,
-                                      builder: (context, val, child) {
-                                        return PlusMinusButtons(
-                                          addQuantity: () {
-                                            cart.addQuantity(
-                                                int.parse(provider.cart[index].productId.toString()));
-                                            dbHelper!
-                                                .updateQuantity(Cart(
-                                                    productId: provider.cart[index].productId,
-                                                    productName: provider
-                                                        .cart[index].productName,
-                                                    salePrice: provider
-                                                        .cart[index].salePrice,
-                                                    purchasePrice: provider
-                                                        .cart[index].purchasePrice,
-                                                    quantity: ValueNotifier(
-                                                        provider.cart[index]
-                                                            .quantity!.value),))
-                                                .then((value) {
-                                              setState(() {
-                                                cart.addTotalPrice(double.parse(
-                                                    provider
-                                                        .cart[index].purchasePrice
-                                                        .toString()));
+                                    ValueListenableBuilder<int>(
+                                        valueListenable:
+                                            provider.cart[index].quantity!,
+                                        builder: (context, val, child) {
+                                          return PlusMinusButtons(
+                                            addQuantity: () {
+                                              cart.addQuantity(
+                                                  int.parse(provider.cart[index].productId.toString()));
+                                              dbHelper!
+                                                  .updateQuantity(Cart(
+                                                      productId: provider.cart[index].productId,
+                                                      productName: provider
+                                                          .cart[index].productName,
+                                                      salePrice: provider
+                                                          .cart[index].salePrice,
+                                                      purchasePrice: provider
+                                                          .cart[index].purchasePrice,
+                                                      quantity: ValueNotifier(
+                                                          provider.cart[index]
+                                                              .quantity!.value),))
+                                                  .then((value) {
+                                                setState(() {
+                                                  cart.addTotalPrice(double.parse(
+                                                      provider
+                                                          .cart[index].purchasePrice
+                                                          .toString()));
+                                                });
                                               });
-                                            });
-                                          },
-                                          deleteQuantity: () {
-                                            cart.deleteQuantity(
-                                                provider.cart[index].productId!);
-                                            cart.removeTotalPrice(double.parse(
-                                                provider.cart[index].purchasePrice
-                                                    .toString()));
-                                          },
-                                          text: val.toString(),
-                                        );
-                                      }),
-                                  IconButton(
-                                      onPressed: () {
-                                        dbHelper!.deleteCartItem(
-                                            provider.cart[index].productId!);
-                                        provider
-                                            .removeItem(provider.cart[index].productId!);
-                                        provider.removeCounter();
-                                      },
-                                      icon: Icon(
-                                        Icons.delete,
-                                        color: Colors.red.shade800,
-                                      )),
-                                ],
+                                            },
+                                            deleteQuantity: () {
+                                              cart.deleteQuantity(
+                                                  provider.cart[index].productId!);
+                                              cart.removeTotalPrice(double.parse(
+                                                  provider.cart[index].purchasePrice
+                                                      .toString()));
+                                            },
+                                            text: val.toString(),
+                                          );
+                                        }),
+                                    IconButton(
+                                        onPressed: () {
+                                          dbHelper!.deleteCartItem(
+                                              provider.cart[index].productId!);
+                                          provider
+                                              .removeItem(provider.cart[index].productId!);
+                                          provider.removeCounter();
+                                        },
+                                        icon: Icon(
+                                          Icons.delete,
+                                          color: Colors.red.shade800,
+                                        )),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -236,13 +241,14 @@ class _CartScreenState extends State<CartScreen> {
           );
         },
         child: Container(
-          color: Colors.yellow.shade600,
+          color: Colors.redAccent,
           alignment: Alignment.center,
           height: 50.0,
           child: const Text(
             'Proceed to Pay',
             style: TextStyle(
               fontSize: 18.0,
+              color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           ),
