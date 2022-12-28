@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:pos/api/getproducts.dart';
@@ -157,10 +156,10 @@ class _ProductListState extends State<ProductList> {
             position: const BadgePosition(start: 30, bottom: 30),
             child: IconButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CartScreen()));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const CartScreen()));
               },
               icon: const Icon(Icons.shopping_cart),
             ),
@@ -208,17 +207,20 @@ class _ProductListState extends State<ProductList> {
                                           fontWeight: FontWeight.bold)),
                                 ]),
                           ),
+                          const SizedBox(
+                            height: 05,
+                          ),
                           RichText(
                             maxLines: 1,
                             text: TextSpan(
-                                text: 'Price: ' r"$",
+                                text: 'Price: ' r"Rs ",
                                 style: TextStyle(
                                     color: Colors.blueGrey.shade800,
                                     fontSize: 16.0),
                                 children: [
                                   TextSpan(
                                       text:
-                                      '${productList[index].purchasePrice.toString()}\n',
+                                      '${productList[index].salePrice.toString()}\n',
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold)),
                                 ]),
@@ -234,10 +236,12 @@ class _ProductListState extends State<ProductList> {
                               .insert(
                             Cart(
                               productId: productList[index].id,
+                              barcode: productList[index].barcode,
                               productName: productList[index].productName,
                               salePrice: productList[index].salePrice.toInt(),
                               purchasePrice: productList[index].purchasePrice?.toInt(),
-                              quantity: ValueNotifier(1),
+                              quantity: productList[index].productQuantity?.toInt(),
+                              // quantity: ValueNotifier(1),
                             ),
                           )
                               .then((value) {

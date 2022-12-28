@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:pos/screens/product_list.dart';
 
+import '../posnew/ProductList.dart';
 import '../utils/shared_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("LogIn Successfully")));
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ProductList()));
+            MaterialPageRoute(builder: (context) =>  ProductListScreen()));
       } else {
         print("Failed");
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

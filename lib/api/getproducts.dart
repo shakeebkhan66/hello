@@ -10,7 +10,7 @@ class GetApiProvider {
 
 
   getproduct() async {
-    String? mytoken = ConstantSharedPreference.preferences?.getString('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpdGFzc3RwZG1hQGdtYWlsLmNvbSIsImV4cCI6MTY3MjA2MTczMH0.XgNq_5ecofUHqQAv9hqxEWAWMYcIfqMUJWcNq5o-aRA');
+    String? mytoken = ConstantSharedPreference.preferences?.getString('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpdGFzc3RwZG1hQGdtYWlsLmNvbSIsImV4cCI6MTY3MjEzNjg5N30.C19Ra_AV_22JO51Geu1XnOY6eiggmgLGvcR7q-9QJk4');
     final response = await http
         .get(Uri.parse('http://192.168.1.31:8080/products'), headers: {
       "Content-Type": "application/json",

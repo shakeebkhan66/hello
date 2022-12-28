@@ -25,7 +25,7 @@ class DBHelper {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        '''CREATE TABLE cart(productId INTEGER PRIMARY KEY, productName TEXT, salePrice INTEGER, purchasePrice INTEGER, quantity INTEGER)'''
+        '''CREATE TABLE cart(productId INTEGER PRIMARY KEY,barcode STRING, productName TEXT, salePrice INTEGER, purchasePrice INTEGER, quantity INTEGER)'''
     );
   }
 
